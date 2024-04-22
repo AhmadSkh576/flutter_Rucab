@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:senior_project_ruccab/screens/auth/verification_screen.dart';
 
 class HttpRequests {
   Future<List<Object>> login(String email, String password) async {
@@ -52,6 +53,27 @@ class HttpRequests {
     );
     var res = jsonDecode(response.body);
     print("signUp");
+    if (response.statusCode == 200) {
+      return [true, res];
+    } else {
+      print(response.body);
+      return [false, res];
+    }
+  }
+
+  Future<List<Object>> verificationCode(
+      String email, String verification_code) async {
+    final response = await http.patch(
+      Uri.parse('http://10.0.2.2:3000/api/auth/validateEmail'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body:
+          jsonEncode({"email": email, "verification_code": verification_code}),
+    );
+    var res = jsonDecode(response.body);
+    print("samir");
     if (response.statusCode == 200) {
       return [true, res];
     } else {

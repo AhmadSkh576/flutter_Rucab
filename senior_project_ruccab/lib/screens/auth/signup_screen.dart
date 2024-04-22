@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:senior_project_ruccab/constant.dart';
 import 'package:senior_project_ruccab/screens/auth/verification_screen.dart';
 import 'package:senior_project_ruccab/utils/http_req.dart';
@@ -13,27 +11,41 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+  List<String> gender = [
+    'male',
+    'female',
+  ];
+  String? selectedGender;
 
-  TextEditingController universityIDController = TextEditingController();
-  TextEditingController facultyController = TextEditingController();
+  List<String> faculty = [
+    'Science and Mathematics',
+    'Business',
+    'Design and built environment',
+    'Engineering'
+        'Health Science'
+  ];
 
-  TextEditingController passwordController = TextEditingController();
+  String? selectedFaculty;
+
+  TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
+  TextEditingController universityIDController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController genderController = TextEditingController();
-  FocusNode firstNameFocus = FocusNode();
-  FocusNode lastNameFocus = FocusNode();
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+
+  FocusNode emailFocus = FocusNode();
+  FocusNode phoneFocus = FocusNode();
   FocusNode universityIDFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
   FocusNode confirmPasswordFocus = FocusNode();
-  FocusNode genderFocus = FocusNode();
-  FocusNode facultyFocus = FocusNode();
-  FocusNode phoneFocus = FocusNode();
 
+  FocusNode firstNameFocus = FocusNode();
+  FocusNode lastNameFocus = FocusNode();
   final httpRequest = HttpRequests();
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -48,33 +60,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Center(
-                  //   child: Image.asset(
-                  //     'assets/images/signUp.png',
-                  //     width: 300,
-                  //   ),
-                  // ),
-                  const SizedBox(height: 15),
-                  const Text(
-                    "Sign up",
-                    style: TextStyle(
-                      color: mainColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
+                  const SizedBox(height: 25.0), // Keeping the height at 30.0
+                  const Padding(
+                    padding: EdgeInsets.only(
+                        left: 40.0), // Adding left padding instead of right
+                    child: Align(
+                      alignment: Alignment
+                          .centerLeft, // Changing the alignment to left
+                      child: Text(
+                        "Sign up",
+                        style: TextStyle(
+                          color: mainColor,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  // Rest of your form fields and widgets
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Column(
                       children: [
+                        const SizedBox(
+                          height: 10.0,
+                        ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const Icon(
-                              Icons.abc,
+                              Icons.person,
                               color: mainColor,
                               size: 35,
                             ),
@@ -83,8 +99,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             Expanded(
                               child: TextFormField(
-                                controller: firstNameController,
+                                controller: firstName,
                                 focusNode: firstNameFocus,
+                                obscureText: false,
                                 validator: (value) {},
                                 onTapOutside: (event) {
                                   firstNameFocus.unfocus();
@@ -102,7 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       width: 0.7,
                                     ),
                                   ),
-                                  hintText: "Enter firstName",
+                                  hintText: "Enter your first name",
                                   hintStyle: TextStyle(
                                     color: darkGrey,
                                     fontSize: 15,
@@ -110,7 +127,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     letterSpacing: 1,
                                   ),
                                 ),
-                                keyboardType: TextInputType.text,
                               ),
                             ),
                           ],
@@ -122,7 +138,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const Icon(
-                              Icons.abc,
+                              Icons.person_2,
                               color: mainColor,
                               size: 35,
                             ),
@@ -131,8 +147,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             Expanded(
                               child: TextFormField(
-                                controller: lastNameController,
+                                controller: lastName,
                                 focusNode: lastNameFocus,
+                                obscureText: false,
                                 validator: (value) {},
                                 onTapOutside: (event) {
                                   lastNameFocus.unfocus();
@@ -150,55 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       width: 0.7,
                                     ),
                                   ),
-                                  hintText: "Enter last name",
-                                  hintStyle: TextStyle(
-                                    color: darkGrey,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.text,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const Icon(
-                              Icons.account_circle_rounded,
-                              color: mainColor,
-                              size: 35,
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                controller: universityIDController,
-                                focusNode: universityIDFocus,
-                                validator: (value) {},
-                                onTapOutside: (event) {
-                                  universityIDFocus.unfocus();
-                                },
-                                decoration: const InputDecoration(
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: mainColor,
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: mainColor,
-                                      width: 0.7,
-                                    ),
-                                  ),
-                                  hintText: "Enter your University ID",
+                                  hintText: "Enter your last name",
                                   hintStyle: TextStyle(
                                     color: darkGrey,
                                     fontSize: 15,
@@ -217,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const Icon(
-                              Icons.account_circle_rounded,
+                              Icons.email_outlined,
                               color: mainColor,
                               size: 35,
                             ),
@@ -226,11 +195,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             Expanded(
                               child: TextFormField(
-                                controller: facultyController,
-                                focusNode: facultyFocus,
+                                controller: emailController,
+                                focusNode: emailFocus,
                                 validator: (value) {},
                                 onTapOutside: (event) {
-                                  facultyFocus.unfocus();
+                                  emailFocus.unfocus();
                                 },
                                 decoration: const InputDecoration(
                                   focusedBorder: UnderlineInputBorder(
@@ -245,7 +214,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       width: 0.7,
                                     ),
                                   ),
-                                  hintText: "Enter your faculty",
+                                  hintText: "Enter University email",
                                   hintStyle: TextStyle(
                                     color: darkGrey,
                                     fontSize: 15,
@@ -253,53 +222,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     letterSpacing: 1,
                                   ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const Icon(
-                              Icons.male,
-                              color: mainColor,
-                              size: 35,
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                controller: genderController,
-                                focusNode: genderFocus,
-                                validator: (value) {},
-                                onTapOutside: (event) {
-                                  genderFocus.unfocus();
-                                },
-                                decoration: const InputDecoration(
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: mainColor,
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: mainColor,
-                                      width: 0.7,
-                                    ),
-                                  ),
-                                  hintText: "Enter your Phone gender",
-                                  hintStyle: TextStyle(
-                                    color: darkGrey,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1,
-                                  ),
-                                ),
+                                keyboardType: TextInputType.emailAddress,
                               ),
                             ),
                           ],
@@ -339,7 +262,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       width: 0.7,
                                     ),
                                   ),
-                                  hintText: "Enter your Phone ",
+                                  hintText: "Enter your phone number",
                                   hintStyle: TextStyle(
                                     color: darkGrey,
                                     fontSize: 15,
@@ -347,6 +270,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     letterSpacing: 1,
                                   ),
                                 ),
+                                keyboardType: TextInputType.emailAddress,
                               ),
                             ),
                           ],
@@ -387,7 +311,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       width: 0.7,
                                     ),
                                   ),
-                                  hintText: "Enter your Password",
+                                  hintText: "Enter your password",
                                   hintStyle: TextStyle(
                                     color: darkGrey,
                                     fontSize: 15,
@@ -447,6 +371,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ],
                         ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        DropdownButtonFormField<String>(
+                          value: selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedGender = value!;
+                            });
+                          },
+                          items: gender.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          decoration: const InputDecoration(
+                            labelText: 'Gender',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        DropdownButtonFormField<String>(
+                          value: selectedFaculty,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedFaculty = value!;
+                            });
+                          },
+                          items: faculty.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          decoration: const InputDecoration(
+                            labelText: 'Faculty',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
                       ],
                     ),
                   ),
@@ -498,21 +467,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   GestureDetector(
                     onTap: () async {
                       var response = await httpRequest.signUp(
-                        universityIDController.text,
-                        passwordController.text,
-                        firstNameController.text,
-                        lastNameController.text,
-                        genderController.text,
-                        facultyController.text,
-                        confirmPasswordController.text,
-                        phoneController.text,
-                      );
+                          emailController.text,
+                          passwordController.text,
+                          firstName.text,
+                          lastName.text,
+                          selectedGender!,
+                          selectedFaculty!,
+                          confirmPasswordController.text,
+                          phoneController.text
+                          // p.text,
+                          );
 
                       if (response[0] == true) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const VerificationScreen(),
+                            builder: (context) => VerificationScreen(
+                              email: emailController.text,
+                            ),
                           ),
                         );
                       } else {
