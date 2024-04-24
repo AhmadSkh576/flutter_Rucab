@@ -33,18 +33,27 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 70),
                   Center(
                     child: Image.asset(
                       'assets/images/Girl using the fingerprint scanner in her phone.png',
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 30),
                   const Text(
-                    "Login",
+                    "Sign In",
                     style: TextStyle(
-                      color: mainColor,
-                      fontSize: 25,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
+                      color: mainColor,
+                      letterSpacing: 1.2,
+                      shadows: [
+                        Shadow(
+                          color: Colors.grey,
+                          offset: Offset(0, 2),
+                          blurRadius: 2,
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(

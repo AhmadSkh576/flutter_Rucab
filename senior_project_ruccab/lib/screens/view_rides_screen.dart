@@ -5,7 +5,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:senior_project_ruccab/components/book_ride_component.dart';
 import 'package:senior_project_ruccab/constant.dart';
 
-
 class ViewRidesScreen extends StatefulWidget {
   const ViewRidesScreen({super.key});
 
@@ -29,7 +28,7 @@ class _ViewRidesScreenState extends State<ViewRidesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white ,
       appBar: AppBar(
         scrolledUnderElevation: 0,
         elevation: 0,

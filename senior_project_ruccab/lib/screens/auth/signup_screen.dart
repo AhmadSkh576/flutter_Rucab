@@ -29,7 +29,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-
   TextEditingController universityIDController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -60,19 +59,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 25.0), // Keeping the height at 30.0
+                  const SizedBox(height: 50.0), // Keeping the height at 30.0
                   const Padding(
                     padding: EdgeInsets.only(
                         left: 40.0), // Adding left padding instead of right
                     child: Align(
                       alignment: Alignment
                           .centerLeft, // Changing the alignment to left
-                      child: Text(
-                        "Sign up",
+                      child: const Text(
+                        "Sign Up",
                         style: TextStyle(
-                          color: mainColor,
-                          fontSize: 25,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
+                          color: mainColor,
+                          letterSpacing: 1.2,
+                          shadows: [
+                            Shadow(
+                              color: Colors.grey,
+                              offset: Offset(0, 2),
+                              blurRadius: 2,
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -374,44 +381,72 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        DropdownButtonFormField<String>(
-                          value: selectedGender,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedGender = value!;
-                            });
-                          },
-                          items: gender.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          decoration: const InputDecoration(
-                            labelText: 'Gender',
-                            border: OutlineInputBorder(),
-                          ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons
+                                  .transgender_sharp, // Icon representing gender
+                              color: mainColor,
+                            ),
+                            SizedBox(
+                                width: 10), // Space between icon and dropdown
+                            Expanded(
+                              child: DropdownButtonFormField<String>(
+                                value: selectedGender,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedGender = value!;
+                                  });
+                                },
+                                items: gender.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                decoration: const InputDecoration(
+                                  labelText: 'Gender',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        DropdownButtonFormField<String>(
-                          value: selectedFaculty,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedFaculty = value!;
-                            });
-                          },
-                          items: faculty.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          decoration: const InputDecoration(
-                            labelText: 'Faculty',
-                            border: OutlineInputBorder(),
-                          ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons
+                                  .school, // Icon representing education/faculty
+                              color: mainColor,
+                            ),
+                            SizedBox(
+                                width: 10), // Space between icon and dropdown
+                            Expanded(
+                              child: DropdownButtonFormField<String>(
+                                value: selectedFaculty,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedFaculty = value!;
+                                  });
+                                },
+                                items: faculty.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                decoration: const InputDecoration(
+                                  labelText: 'Faculty',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 15,

@@ -20,6 +20,15 @@ class _VerificationScreenState extends State<VerificationScreen> {
   FocusNode _focusNode5 = FocusNode();
   FocusNode _focusNode6 = FocusNode();
   final httpRequest = HttpRequests();
+  List<String> codeDigits = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
+  ]; // List to store verification code digits
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,14 +85,29 @@ class _VerificationScreenState extends State<VerificationScreen> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
+                children: List.generate(6, (index) {
+                  return SizedBox(
                     height: 64 * 0.60,
                     width: 50 * 0.75,
                     child: TextFormField(
-                      focusNode: _focusNode1,
+                      focusNode: [
+                        _focusNode1,
+                        _focusNode2,
+                        _focusNode3,
+                        _focusNode4,
+                        _focusNode5,
+                        _focusNode6
+                      ][index],
                       onTapOutside: (value) {
-                        _focusNode1.unfocus();
+                        [
+                          _focusNode1,
+                          _focusNode2,
+                          _focusNode3,
+                          _focusNode4,
+                          _focusNode5,
+                          _focusNode6
+                        ][index]
+                            .unfocus();
                       },
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
@@ -93,7 +117,18 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       ],
                       onChanged: (newValue) {
                         if (newValue.isNotEmpty) {
-                          _focusNode2.requestFocus();
+                          codeDigits[index] = newValue;
+                          if (index < 5) {
+                            [
+                              _focusNode1,
+                              _focusNode2,
+                              _focusNode3,
+                              _focusNode4,
+                              _focusNode5,
+                              _focusNode6
+                            ][index + 1]
+                                .requestFocus();
+                          }
                         }
                       },
                       style: const TextStyle(
@@ -108,236 +143,17 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             fontSize: 30),
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
                         ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
                         ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(width: 3, color: greyColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 64 * 0.60,
-                    width: 50 * 0.75,
-                    child: TextFormField(
-                      focusNode: _focusNode2,
-                      onTapOutside: (value) {
-                        _focusNode2.unfocus();
-                      },
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onChanged: (newValue) {
-                        if (newValue.isNotEmpty) {
-                          _focusNode3.requestFocus();
-                        }
-                      },
-                      style: const TextStyle(
-                          color: mainColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30),
-                      decoration: const InputDecoration(
-                        hintText: '0',
-                        hintStyle: TextStyle(
-                            color: mainColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 30),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: greyColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 64 * 0.60,
-                    width: 50 * 0.75,
-                    child: TextFormField(
-                      focusNode: _focusNode3,
-                      onTapOutside: (value) {
-                        _focusNode3.unfocus();
-                      },
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onChanged: (newValue) {
-                        if (newValue.isNotEmpty) {
-                          _focusNode4.requestFocus();
-                        }
-                      },
-                      style: const TextStyle(
-                          color: mainColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30),
-                      decoration: const InputDecoration(
-                        hintText: '0',
-                        hintStyle: TextStyle(
-                            color: mainColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 30),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: greyColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 64 * 0.60,
-                    width: 50 * 0.75,
-                    child: TextFormField(
-                      focusNode: _focusNode4,
-                      onTapOutside: (value) {
-                        _focusNode4.unfocus();
-                      },
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onChanged: (newValue) {
-                        if (newValue.isNotEmpty) {
-                          _focusNode4.requestFocus();
-                        }
-                      },
-                      style: const TextStyle(
-                          color: mainColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30),
-                      decoration: const InputDecoration(
-                        hintText: '0',
-                        hintStyle: TextStyle(
-                            color: mainColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 30),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: greyColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 64 * 0.60,
-                    width: 50 * 0.75,
-                    child: TextFormField(
-                      focusNode: _focusNode5,
-                      onTapOutside: (value) {
-                        _focusNode5.unfocus();
-                      },
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onChanged: (newValue) {
-                        if (newValue.isNotEmpty) {
-                          _focusNode4.requestFocus();
-                        }
-                      },
-                      style: const TextStyle(
-                          color: mainColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30),
-                      decoration: const InputDecoration(
-                        hintText: '0',
-                        hintStyle: TextStyle(
-                            color: mainColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 30),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: greyColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 64 * 0.60,
-                    width: 50 * 0.75,
-                    child: TextFormField(
-                      focusNode: _focusNode6,
-                      onTapOutside: (value) {
-                        _focusNode6.unfocus();
-                      },
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onChanged: (newValue) {},
-                      style: const TextStyle(
-                          color: mainColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30),
-                      decoration: const InputDecoration(
-                        hintText: '0',
-                        hintStyle: TextStyle(
-                            color: mainColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 30),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: lightColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 3, color: greyColor),
-                          // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  );
+                }),
               ),
               const SizedBox(
                 height: 50,
@@ -346,8 +162,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 width: double.maxFinite,
                 child: GestureDetector(
                   onTap: () async {
+                    var verificationCode = codeDigits.join('');
                     var response = await httpRequest.verificationCode(
-                        widget.email, "08e17bf7");
+                        widget.email, verificationCode);
 
                     if (response[0] == true) {
                       if (!context.mounted) return;

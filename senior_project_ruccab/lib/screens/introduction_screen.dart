@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/main.dart';
 import 'package:senior_project_ruccab/screens/auth/signin_screen.dart';
 import 'package:senior_project_ruccab/screens/book_ride_main_screen.dart';
 import 'package:senior_project_ruccab/screens/car_ride_screen.dart';
-
 import '../constant.dart';
 
 class IntroductionScreen extends StatefulWidget {
@@ -133,147 +133,303 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CarouselSlider(
-            carouselController: controller,
-            items: [firstPage(), secondPage(), thirdPage()],
-            options: CarouselOptions(
-              enableInfiniteScroll: false,
-              aspectRatio: 0.7,
-              viewportFraction: 1.1,
-              reverse: false,
-              autoPlay: false,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 400),
-              scrollDirection: Axis.horizontal,
-              initialPage: 0,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 100,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 0;
-                    controller.jumpToPage(0);
-                  });
-                },
-                child: Container(
-                  height: 15,
-                  width: 15,
-                  decoration: BoxDecoration(
-                      color: selectedIndex == 0 ? mainColor : darkGrey,
-                      shape: BoxShape.circle),
-                ),
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 1;
-                    controller.jumpToPage(1);
-                  });
-                },
-                child: Container(
-                  height: 15,
-                  width: 15,
-                  decoration: BoxDecoration(
-                      color: selectedIndex == 1 ? mainColor : darkGrey,
-                      shape: BoxShape.circle),
-                ),
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = 2;
-                    controller.jumpToPage(2);
-                  });
-                },
-                child: Container(
-                  height: 15,
-                  width: 15,
-                  decoration: BoxDecoration(
-                    color: selectedIndex == 2 ? mainColor : darkGrey,
-                    shape: BoxShape.circle,
+      body: kIsWeb
+          ? SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 500,
+                    child: CarouselSlider(
+                      carouselController: controller,
+                      items: [firstPage(), secondPage(), thirdPage()],
+                      options: CarouselOptions(
+                        enableInfiniteScroll: false,
+                        aspectRatio: 0.7,
+                        viewportFraction: 1.1,
+                        reverse: false,
+                        autoPlay: false,
+                        autoPlayInterval: const Duration(seconds: 3),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 400),
+                        scrollDirection: Axis.horizontal,
+                        initialPage: 0,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            selectedIndex = index;
+                          });
+                        },
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                if (selectedIndex < 2) {
-                  selectedIndex++;
-                  controller.jumpToPage(selectedIndex);
-                } else {
-                  sharedPrefenrece.setString("initial", 'false');
-                  sharedPrefenrece.getString('signed') == 'true'
-                      ? sharedPrefenrece.getString('role') == 'driver'
-                          ? Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const CarRideScreen(),
-                              ),
-                              (route) => false)
-                          : Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const BookRideMainScreen(),
-                              ),
-                              (route) => false)
-                      : Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignInScreen(),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 0;
+                            controller.jumpToPage(0);
+                          });
+                        },
+                        child: Container(
+                          height: 15,
+                          width: 15,
+                          decoration: BoxDecoration(
+                              color: selectedIndex == 0 ? mainColor : darkGrey,
+                              shape: BoxShape.circle),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 1;
+                            controller.jumpToPage(1);
+                          });
+                        },
+                        child: Container(
+                          height: 15,
+                          width: 15,
+                          decoration: BoxDecoration(
+                              color: selectedIndex == 1 ? mainColor : darkGrey,
+                              shape: BoxShape.circle),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 2;
+                            controller.jumpToPage(2);
+                          });
+                        },
+                        child: Container(
+                          height: 15,
+                          width: 15,
+                          decoration: BoxDecoration(
+                            color: selectedIndex == 2 ? mainColor : darkGrey,
+                            shape: BoxShape.circle,
                           ),
-                          (route) => false);
-                }
-              });
-            },
-            child: Container(
-              width: 200,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: selectedIndex == 2 ? mainColor : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (selectedIndex < 2) {
+                          selectedIndex++;
+                          controller.jumpToPage(selectedIndex);
+                        } else {
+                          sharedPrefenrece.setString("initial", 'false');
+                          sharedPrefenrece.getString('signed') == 'true'
+                              ? sharedPrefenrece.getString('role') == 'driver'
+                                  ? Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CarRideScreen(),
+                                      ),
+                                      (route) => false)
+                                  : Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BookRideMainScreen(),
+                                      ),
+                                      (route) => false)
+                              : Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SignInScreen(),
+                                  ),
+                                  (route) => false);
+                        }
+                      });
+                    },
+                    child: Container(
+                      width: 200,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color:
+                            selectedIndex == 2 ? mainColor : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          selectedIndex == 2 ? 'Get Started' : 'Next',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: selectedIndex == 2 ? Colors.white : darkGrey,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  selectedIndex == 2 ? 'Get Started' : 'Next',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: selectedIndex == 2 ? Colors.white : darkGrey,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 500,
+                  child: CarouselSlider(
+                    carouselController: controller,
+                    items: [firstPage(), secondPage(), thirdPage()],
+                    options: CarouselOptions(
+                      enableInfiniteScroll: false,
+                      aspectRatio: 0.7,
+                      viewportFraction: 1.1,
+                      reverse: false,
+                      autoPlay: false,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 400),
+                      scrollDirection: Axis.horizontal,
+                      initialPage: 0,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 0;
+                          controller.jumpToPage(0);
+                        });
+                      },
+                      child: Container(
+                        height: 15,
+                        width: 15,
+                        decoration: BoxDecoration(
+                            color: selectedIndex == 0 ? mainColor : darkGrey,
+                            shape: BoxShape.circle),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 1;
+                          controller.jumpToPage(1);
+                        });
+                      },
+                      child: Container(
+                        height: 15,
+                        width: 15,
+                        decoration: BoxDecoration(
+                            color: selectedIndex == 1 ? mainColor : darkGrey,
+                            shape: BoxShape.circle),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 2;
+                          controller.jumpToPage(2);
+                        });
+                      },
+                      child: Container(
+                        height: 15,
+                        width: 15,
+                        decoration: BoxDecoration(
+                          color: selectedIndex == 2 ? mainColor : darkGrey,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (selectedIndex < 2) {
+                        selectedIndex++;
+                        controller.jumpToPage(selectedIndex);
+                      } else {
+                        sharedPrefenrece.setString("initial", 'false');
+                        sharedPrefenrece.getString('signed') == 'true'
+                            ? sharedPrefenrece.getString('role') == 'driver'
+                                ? Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CarRideScreen(),
+                                    ),
+                                    (route) => false)
+                                : Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const BookRideMainScreen(),
+                                    ),
+                                    (route) => false)
+                            : Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignInScreen(),
+                                ),
+                                (route) => false);
+                      }
+                    });
+                  },
+                  child: Container(
+                    width: 200,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color:
+                          selectedIndex == 2 ? mainColor : Colors.transparent,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        selectedIndex == 2 ? 'Get Started' : 'Next',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: selectedIndex == 2 ? Colors.white : darkGrey,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

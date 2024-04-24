@@ -13,8 +13,20 @@ class BookRideMainScreen extends StatefulWidget {
 }
 
 class _BookRideMainScreenState extends State<BookRideMainScreen> {
+List<String> startLocation = [
+    'Abo Samra',
+    'Mina',
+    'Akkar',
+    'Sir Denieh',
+    'Kalamoun',
+    'Koura',
+    'Ebbe',
+    'Dam w Farz',
+  ];
+
+  String? selectedStartLocation;
+
   FocusNode _focusNode = FocusNode();
-  FocusNode _focusNode2 = FocusNode();
   TextEditingController startController = TextEditingController();
   TextEditingController universityController = TextEditingController();
   bool _alignment = true;
@@ -28,9 +40,17 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
         title: const Text(
           "Book a Ride",
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
             color: mainColor,
+            letterSpacing: 1.2,
+            shadows: [
+              Shadow(
+                color: Colors.grey,
+                offset: Offset(0, 2),
+                blurRadius: 2,
+              ),
+            ],
           ),
         ),
         backgroundColor: Colors.white,
@@ -81,7 +101,7 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: mainColor.withOpacity(.3),
+                        color: mainColor.withOpacity(0.2),
                       ),
                       height: 110,
                     ),
@@ -97,16 +117,29 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: mainColor.withOpacity(1),
+                              color: mainColor.withOpacity(0.6),
                             ),
-                            child: TextField(
-                              controller: startController,
-                              focusNode: _focusNode,
-                              onTapOutside: (value) {
-                                _focusNode.unfocus();
+                            child: DropdownButtonFormField<String>(
+                              value: selectedStartLocation,
+                              items: startLocation
+                                  .map((location) => DropdownMenuItem<String>(
+                                        value: location,
+                                        child: Text(
+                                          location,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedStartLocation = value;
+                                });
                               },
-                              cursorColor: mainColor.withOpacity(.2),
                               decoration: InputDecoration(
+                                border: InputBorder.none,
                                 prefixIcon: Icon(
                                   _alignment
                                       ? Icons.adjust_rounded
@@ -114,7 +147,6 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
                                   color: mainColor,
                                   size: 20,
                                 ),
-                                border: InputBorder.none,
                                 filled: true,
                                 hintStyle: TextStyle(
                                     color: Colors.grey[600], fontSize: 15),
@@ -122,12 +154,14 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
                                     ? "Set start location"
                                     : 'Set Destination',
                                 fillColor: Colors.white70,
+                            
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
+                        
                     SizedBox(
                       height: 110,
                       child: AnimatedAlign(
@@ -140,15 +174,16 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: mainColor.withOpacity(1),
+
+                              color: mainColor.withOpacity(0.6),
                             ),
                             child: TextField(
                               controller: universityController,
-                              focusNode: _focusNode2,
-                              onTapOutside: (value) {
-                                _focusNode2.unfocus();
-                              },
-                              cursorColor: mainColor,
+
+                             
+                              readOnly: true, // Makes the TextField read-only
+                              cursorColor:
+                                  mainColor, // Set your 'mainColor' variable accordingly
                               decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   !_alignment
@@ -225,7 +260,7 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
             height: MediaQuery.of(context).size.height * 0.65,
             width: double.maxFinite,
             decoration: BoxDecoration(
-              color: mainColor.withOpacity(.3),
+              color: mainColor.withOpacity(.2),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
@@ -295,8 +330,8 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(
-                        horizontal: 60,
-                        vertical: 20,
+                        horizontal: 70,
+                        vertical: 15,
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),

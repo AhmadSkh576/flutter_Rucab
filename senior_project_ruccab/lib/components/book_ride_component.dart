@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/constant.dart';
 import 'package:senior_project_ruccab/ride_details.dart';
 
-
 class BookRideComponent extends StatelessWidget {
   const BookRideComponent({
     super.key,

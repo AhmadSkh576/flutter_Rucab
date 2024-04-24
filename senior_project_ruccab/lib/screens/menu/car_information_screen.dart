@@ -13,10 +13,16 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
   TextEditingController plateNumberController = TextEditingController();
   TextEditingController modelController = TextEditingController();
   TextEditingController carYearController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController licenseNumberController = TextEditingController();
+  TextEditingController expirationDateController = TextEditingController();
   FocusNode colorFocus = FocusNode();
   FocusNode plateNumberFocus = FocusNode();
   FocusNode modelFocus = FocusNode();
   FocusNode carYearFocus = FocusNode();
+  FocusNode fullNameFocus = FocusNode();
+  FocusNode licenseNumberFocus = FocusNode();
+  FocusNode expirationDateFocus = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -288,6 +294,156 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
                   Container(
                     width: double.maxFinite,
                     height: double.maxFinite,
+                    margin: const EdgeInsets.all(20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Full Name",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                          TextFormField(
+                            controller: fullNameController,
+                            focusNode: fullNameFocus,
+                            validator: (value) {},
+                            onTapOutside: (event) {
+                              fullNameFocus.unfocus();
+                            },
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: mainColor,
+                                  width: 1.5,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: darkGrey,
+                                  width: 0.7,
+                                ),
+                              ),
+                              hintText: "Enter your Full Name",
+                              hintStyle: TextStyle(
+                                color: darkGrey,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            "License Number",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                          TextFormField(
+                            controller: licenseNumberController,
+                            focusNode: licenseNumberFocus,
+                            validator: (value) {},
+                            onTapOutside: (event) {
+                              licenseNumberFocus.unfocus();
+                            },
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: mainColor,
+                                  width: 1.5,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: darkGrey,
+                                  width: 0.7,
+                                ),
+                              ),
+                              hintText: "Enter your License Number",
+                              hintStyle: TextStyle(
+                                color: darkGrey,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            "Exp",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                          TextFormField(
+                            controller: expirationDateController,
+                            focusNode: expirationDateFocus,
+                            validator: (value) {},
+                            onTapOutside: (event) {
+                              expirationDateFocus.unfocus();
+                            },
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: mainColor,
+                                  width: 1.5,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: darkGrey,
+                                  width: 0.7,
+                                ),
+                              ),
+                              hintText: "Enter your expiration date",
+                              hintStyle: TextStyle(
+                                color: darkGrey,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            height: 45,
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 30,
+                              vertical: 20,
+                            ),
+                            width: double.maxFinite,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: mainColor,
+                            ),
+                            child: const Text(
+                              "Edit",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ]),
               ),

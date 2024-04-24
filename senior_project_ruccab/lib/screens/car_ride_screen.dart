@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/screens/menu/menu_screen.dart';
+
 import '../constant.dart';
 import '../ride/preferences_screen.dart';
 
@@ -99,41 +100,47 @@ class _CarRideScreenState extends State<CarRideScreen> {
                 const SizedBox(
                   width: 300,
                   child: Text(
-                    "Let's Create Your Ride",
+                    "Lets Create Your Ride",
                     style: TextStyle(
-                        color: mainColor,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 30),
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: mainColor,
+                      letterSpacing: 1.2,
+                      shadows: [
+                        Shadow(
+                          color: Colors.grey,
+                          offset: Offset(0, 2),
+                          blurRadius: 2,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 1,
-                      width: 60,
+                      height: 15,
+                      width: 100,
                       child: Divider(
                         color: mainColor,
                         thickness: 3,
                       ),
                     ),
-                    SizedBox(
-                      width: 80,
-                    )
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 const SizedBox(
                   width: 200,
                   child: Text(
-                    'Your address are kept private',
+                    'Your address is kept private',
                     style: TextStyle(
                       color: greyColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 12.5,
-                      letterSpacing: 0.5,
+                      letterSpacing: 0.9,
                     ),
                     textAlign: TextAlign.start,
                   ),
@@ -141,21 +148,25 @@ class _CarRideScreenState extends State<CarRideScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _alignment = !_alignment;
-                        });
-                      },
-                      child: const Icon(
-                        Icons.swap_vert_circle,
-                        color: mainColor,
+                Padding(
+                  padding:
+                      EdgeInsets.only(right: 25.0), // Add padding to the left
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _alignment = !_alignment;
+                          });
+                        },
+                        child: Icon(
+                          Icons.change_circle_outlined,
+                          color: mainColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 AnimatedCrossFade(
                   duration: const Duration(seconds: 1),
@@ -202,7 +213,10 @@ class _CarRideScreenState extends State<CarRideScreen> {
                                           : 'Set Destination'
                                       : selectedStartLocation,
                                   style: TextStyle(
-                                      color:selectedStartLocation == ""?Colors.grey[600]:darkGrey, fontSize: 15),
+                                      color: selectedStartLocation == ""
+                                          ? Colors.grey[600]
+                                          : darkGrey,
+                                      fontSize: 15),
                                 ),
                                 const Icon(
                                   Icons.my_location,
@@ -254,7 +268,10 @@ class _CarRideScreenState extends State<CarRideScreen> {
                                         ? "University Default Destination"
                                         : selectedUniversityLocation,
                                     style: TextStyle(
-                                        color:selectedUniversityLocation == ""?Colors.grey[600]:darkGrey, fontSize: 15)),
+                                        color: selectedUniversityLocation == ""
+                                            ? Colors.grey[600]
+                                            : darkGrey,
+                                        fontSize: 15)),
                                 const Icon(
                                   Icons.my_location,
                                   color: mainColor,
@@ -321,7 +338,10 @@ class _CarRideScreenState extends State<CarRideScreen> {
                                           : 'Set Destination'
                                       : selectedStartLocation,
                                   style: TextStyle(
-                                      color: selectedStartLocation == ""?Colors.grey[600]:darkGrey, fontSize: 15),
+                                      color: selectedStartLocation == ""
+                                          ? Colors.grey[600]
+                                          : darkGrey,
+                                      fontSize: 15),
                                 ),
                                 const Icon(
                                   Icons.my_location,
@@ -373,7 +393,10 @@ class _CarRideScreenState extends State<CarRideScreen> {
                                         ? "University Default Destination"
                                         : selectedUniversityLocation,
                                     style: TextStyle(
-                                        color: selectedUniversityLocation == ""?Colors.grey[600]:darkGrey, fontSize: 15)),
+                                        color: selectedUniversityLocation == ""
+                                            ? Colors.grey[600]
+                                            : darkGrey,
+                                        fontSize: 15)),
                                 const Icon(
                                   Icons.my_location,
                                   color: mainColor,
