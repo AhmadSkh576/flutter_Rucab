@@ -66,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Align(
                       alignment: Alignment
                           .centerLeft, // Changing the alignment to left
-                      child: const Text(
+                      child: Text(
                         "Sign Up",
                         style: TextStyle(
                           fontSize: 30,
@@ -384,13 +384,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons
                                   .transgender_sharp, // Icon representing gender
                               color: mainColor,
                             ),
-                            SizedBox(
-                                width: 10), // Space between icon and dropdown
+                            const SizedBox(
+                                width: 5), // Space between icon and dropdown
                             Expanded(
                               child: DropdownButtonFormField<String>(
                                 value: selectedGender,
@@ -419,13 +419,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons
                                   .school, // Icon representing education/faculty
                               color: mainColor,
                             ),
-                            SizedBox(
-                                width: 10), // Space between icon and dropdown
+                            const SizedBox(
+                                width: 5), // Space between icon and dropdown
                             Expanded(
                               child: DropdownButtonFormField<String>(
                                 value: selectedFaculty,
@@ -514,6 +514,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           );
 
                       if (response[0] == true) {
+                        if (!context.mounted) return;
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -523,6 +524,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         );
                       } else {
+                        if (!context.mounted) return;
+
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("${response[1]}"),
                         ));

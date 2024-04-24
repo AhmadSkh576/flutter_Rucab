@@ -163,6 +163,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 child: GestureDetector(
                   onTap: () async {
                     var verificationCode = codeDigits.join('');
+                    print(verificationCode);
                     var response = await httpRequest.verificationCode(
                         widget.email, verificationCode);
 

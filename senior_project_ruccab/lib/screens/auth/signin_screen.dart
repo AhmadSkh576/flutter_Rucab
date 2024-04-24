@@ -125,7 +125,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Expanded(
                               child: TextFormField(
                                 controller: passwordController,
-                                obscureText: true,
+                                obscureText: obscure,
                                 focusNode: passwordFocus,
                                 validator: (value) {},
                                 onTapOutside: (event) {
@@ -180,10 +180,13 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      print("login clicked");
                       var response = await httpRequest.login(
                           emailController.text, passwordController.text);
 
                       if (response[0] == true) {
+                        if (!context.mounted) return;
+
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -192,6 +195,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           (route) => false,
                         );
                       } else {
+                        if (!context.mounted) return;
+
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("${response[1]}"),
                         ));
