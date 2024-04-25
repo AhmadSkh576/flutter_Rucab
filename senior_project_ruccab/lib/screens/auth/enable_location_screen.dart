@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/constant.dart';
 import 'package:senior_project_ruccab/screens/auth/choose_branch_screen.dart';
 
-
 class EnableLocationScreen extends StatefulWidget {
   const EnableLocationScreen({super.key});
 

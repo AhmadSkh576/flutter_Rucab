@@ -163,8 +163,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 child: GestureDetector(
                   onTap: () async {
                     var verificationCode = codeDigits.join('');
-                    print(verificationCode);
-                    var response = await httpRequest.verificationCode(
+                    var response = await httpRequest.validateEmail(
                         widget.email, verificationCode);
 
                     if (response[0] == true) {
@@ -208,7 +207,27 @@ class _VerificationScreenState extends State<VerificationScreen> {
               SizedBox(
                 width: double.maxFinite,
                 child: GestureDetector(
-                  onTap: () async {},
+                  onTap: () async {
+                    var response = await httpRequest.resendEmail(widget.email);
+
+                    if (response[0] == true) {
+                      if (!context.mounted) return;
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Code sent"),
+                        ),
+                      );
+                    } else {
+                      if (!context.mounted) return;
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("${response[1]}"),
+                        ),
+                      );
+                    }
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.white,

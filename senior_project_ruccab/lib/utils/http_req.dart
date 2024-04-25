@@ -61,10 +61,12 @@ class HttpRequests {
     }
   }
 
-  Future<List<Object>> verificationCode(
+  Future<List<Object>> validateEmail(
       String email, String verification_code) async {
+    print(verification_code);
+
     final response = await http.patch(
-      Uri.parse('http:/10.0.2.2:3000/api/auth/validateEmail'),
+      Uri.parse('http://10.0.2.2:3000/api/auth/validateEmail'),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -73,11 +75,27 @@ class HttpRequests {
           jsonEncode({"email": email, "verification_code": verification_code}),
     );
     var res = jsonDecode(response.body);
-    print("samir");
     if (response.statusCode == 200) {
       return [true, res];
     } else {
-      print(response.body);
+      return [false, res];
+    }
+  }
+
+  Future<List<Object>> resendEmail(String email) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:3000/api/auth/resendEmail'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode({'email': email, "type": "email"}),
+    );
+    var res = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return [true, res];
+    } else {
       return [false, res];
     }
   }
