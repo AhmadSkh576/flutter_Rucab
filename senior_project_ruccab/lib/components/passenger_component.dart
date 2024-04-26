@@ -163,3 +163,137 @@ class _PassengerComponentState extends State<PassengerComponent> {
     );
   }
 }
+
+
+/* when linking:
+import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:senior_project_ruccab/models/passenger.dart';
+import 'package:senior_project_ruccab/constant.dart';
+
+class PassengerComponent extends StatefulWidget {
+  final Passenger passenger;
+
+  const PassengerComponent({super.key, required this.passenger});
+
+  @override
+  State<PassengerComponent> createState() => _PassengerComponentState();
+}
+
+class _PassengerComponentState extends State<PassengerComponent> {
+  bool selected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.maxFinite,
+      height: 150,
+      decoration: BoxDecoration(
+          color: const Color.fromRGBO(241, 216, 234, 1.0),
+          borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0, left: 10, right: 10),
+            child: Row(
+              children: [
+                SizedBox(
+                  height: 60,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.passenger.imageUrl,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => const Icon(
+                        Icons.person,
+                        size: 60,
+                      ),
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.person,
+                        size: 60,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.passenger.name,
+                        style: const TextStyle(color: mainColor, fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        widget.passenger.university,
+                        style: const TextStyle(color: greyColor, fontSize: 14),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: double.maxFinite,
+            color: greyColor,
+            height: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: 60,
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20))),
+                    child: const Center(
+                      child: Text(
+                        'View Details',
+                        style: TextStyle(color: darkGrey, fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 1,
+                color: greyColor,
+                height: 60,
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selected = !selected;
+                    });
+                  },
+                  child: Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: selected ? mainColor.withOpacity(0.4) : Colors.transparent,
+                        borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20))),
+                    child: const Center(
+                      child: Text(
+                        'Select',
+                        style: TextStyle(color: mainColor, fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+  */

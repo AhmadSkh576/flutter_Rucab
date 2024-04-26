@@ -6,10 +6,12 @@ class ConfirmationDriverComponent extends StatefulWidget {
   const ConfirmationDriverComponent({super.key});
 
   @override
-  State<ConfirmationDriverComponent> createState() => _ConfirmationDriverComponentState();
+  State<ConfirmationDriverComponent> createState() =>
+      _ConfirmationDriverComponentState();
 }
 
-class _ConfirmationDriverComponentState extends State<ConfirmationDriverComponent> {
+class _ConfirmationDriverComponentState
+    extends State<ConfirmationDriverComponent> {
   bool selected = false;
 
   @override
@@ -30,9 +32,11 @@ class _ConfirmationDriverComponentState extends State<ConfirmationDriverComponen
               children: [
                 Column(
                   children: [
-                    const Text('White Swift',  style: TextStyle(color: mainColor,fontWeight: FontWeight.w600)),
+                    const Text('White Swift',
+                        style: TextStyle(
+                            color: mainColor, fontWeight: FontWeight.w600)),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0,bottom: 15),
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 15),
                       child: SizedBox(
                         height: 50,
                         child: ClipRRect(
@@ -71,38 +75,41 @@ class _ConfirmationDriverComponentState extends State<ConfirmationDriverComponen
                       style: TextStyle(color: greyColor),
                     ),
                     Text(' 1234',
-                        style: TextStyle(color: darkGrey,fontWeight: FontWeight.w500))
+                        style: TextStyle(
+                            color: darkGrey, fontWeight: FontWeight.w500))
                   ],
                 ),
                 const SizedBox(
                   width: 50,
                 ),
-                   Row(
+                Row(
                   children: [
-                    const   Column(
+                    const Column(
                       children: [
                         Text(
                           'Ahmad',
-                          style: TextStyle(color: mainColor,fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                              color: mainColor, fontWeight: FontWeight.w500),
                         ),
-                         Row(children: [
-                           Icon(
-                             Icons.star,
-                             color: Colors.yellow,
-                           ),
+                        Row(children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                          ),
                           Text('4.5'),
-
                         ]),
                       ],
                     ),
-                  const  SizedBox(width: 5,),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     SizedBox(
                       height: 40,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: CachedNetworkImage(
                           imageUrl:
-                          "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg",
+                              "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg",
                           fit: BoxFit.cover,
                           // width: double.maxFinite,
                           placeholder: (context, url) {
@@ -125,7 +132,6 @@ class _ConfirmationDriverComponentState extends State<ConfirmationDriverComponen
               ],
             ),
           ),
-
           Container(
             width: double.maxFinite,
             color: greyColor,
@@ -143,11 +149,17 @@ class _ConfirmationDriverComponentState extends State<ConfirmationDriverComponen
                     decoration: const BoxDecoration(
                         borderRadius:
                             BorderRadius.only(bottomLeft: Radius.circular(20))),
-                    child:const Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.phone,size: 20,color: greyColor,),
-                        SizedBox(width: 5,),
+                        Icon(
+                          Icons.phone,
+                          size: 20,
+                          color: greyColor,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
                         Text(
                           'Call Driver',
                           style: TextStyle(color: greyColor, fontSize: 18),
@@ -178,11 +190,17 @@ class _ConfirmationDriverComponentState extends State<ConfirmationDriverComponen
                               : Colors.transparent,
                           borderRadius: const BorderRadius.only(
                               bottomRight: Radius.circular(20))),
-                      child:const Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.cancel,size: 20,color: greyColor,),
-                          SizedBox(width: 5,),
+                          Icon(
+                            Icons.cancel,
+                            size: 20,
+                            color: greyColor,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Text(
                             'Cancel Ride',
                             style: TextStyle(color: greyColor, fontSize: 18),
@@ -198,3 +216,13 @@ class _ConfirmationDriverComponentState extends State<ConfirmationDriverComponen
     );
   }
 }
+
+
+
+/*
+when linking: 
+
+
+
+
+ */

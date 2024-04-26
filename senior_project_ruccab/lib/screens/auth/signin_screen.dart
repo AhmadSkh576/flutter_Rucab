@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/constant.dart';
+import 'package:senior_project_ruccab/local_token.dart';
 import 'package:senior_project_ruccab/screens/auth/enable_location_screen.dart';
 import 'package:senior_project_ruccab/screens/auth/signup_screen.dart';
 import 'package:senior_project_ruccab/utils/http_req.dart';
@@ -12,14 +13,16 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
   bool obscure = false;
   final httpRequest = HttpRequests();
-
   final _formKey = GlobalKey<FormState>();
+  final SecureStorage secureStorage = SecureStorage();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

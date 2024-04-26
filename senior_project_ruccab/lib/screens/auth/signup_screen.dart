@@ -84,7 +84,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                   ),
-                  // Rest of your form fields and widgets
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -386,11 +385,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           children: [
                             Icon(
                               Icons
-                                  .transgender_sharp, // Icon representing gender
+                                  .transgender_sharp, 
                               color: mainColor,
                             ),
                             SizedBox(
-                                width: 10), // Space between icon and dropdown
+                                width: 10
+                                ), // Space between icon and dropdown
                             Expanded(
                               child: DropdownButtonFormField<String>(
                                 value: selectedGender,
