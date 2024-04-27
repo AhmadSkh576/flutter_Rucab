@@ -34,6 +34,7 @@ class HttpRequests {
       String faculty,
       String confirmPassword,
       String phone) async {
+        
     final response = await http.post(
       Uri.parse('http://192.168.1.106:3000/api/auth/signup'),
       headers: {

@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // After 5 seconds, navigate to the next screen
     Timer(const Duration(seconds: 2), () {
-      sharedPrefenrece.getString('initial') != 'false'
+      sharedPrefenrece.getString('initial') == 'false'
           ? Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
