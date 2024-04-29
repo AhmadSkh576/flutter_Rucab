@@ -427,7 +427,12 @@ class _CarRideScreenState extends State<CarRideScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PreferencesScreen()));
+                              builder: (context) => PreferencesScreen(
+                                    selectedStartLocation:
+                                        selectedStartLocation,
+                                    selectedUniversityLocation:
+                                        selectedUniversityLocation,
+                                  )));
                     },
                     child: Container(
                       decoration: BoxDecoration(

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:senior_project_ruccab/ride/passengers_screen.dart';
+import 'package:senior_project_ruccab/utils/http_req.dart';
 
 import '../constant.dart';
 
 class PreferencesScreen extends StatefulWidget {
-  const PreferencesScreen({super.key});
+  final String selectedStartLocation;
+  final String selectedUniversityLocation;
+  const PreferencesScreen(
+      {super.key,
+      required this.selectedStartLocation,
+      required this.selectedUniversityLocation});
 
   @override
   State<PreferencesScreen> createState() => _PreferencesScreenState();
@@ -22,6 +28,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
   TextEditingController detailsController = TextEditingController();
   TextEditingController passengerController = TextEditingController();
   TextEditingController storageController = TextEditingController();
+  final httpRequest = HttpRequests();
 
   @override
   Widget build(BuildContext context) {
@@ -457,100 +464,132 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                       SizedBox(
                         width: 300,
                         child: GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return StatefulBuilder(
-                                      builder: (final context,
-                                              final setStatee) =>
-                                          Align(
-                                              alignment: Alignment.center,
-                                              child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 20, right: 20),
-                                                padding: const EdgeInsets.only(
-                                                    left: 10, right: 10),
-                                                height: 280,
-                                                width: 280,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 20.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      const Icon(
-                                                        Icons.verified_sharp,
-                                                        color: mainColor,
-                                                        size: 100,
-                                                      ),
-                                                      const DefaultTextStyle(
-                                                        style: TextStyle(
-                                                          color: greyColor,
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        child: Text(
-                                                            'Your ride has been Confirmed'),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () async {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          const PassengersScreen()));
-                                                        },
-                                                        child: Container(
-                                                          height: 50,
-                                                          width: 150,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        30),
-                                                            color: mainColor,
-                                                          ),
-                                                          child: const Center(
-                                                              child:
-                                                                  DefaultTextStyle(
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 16,
-                                                            ),
-                                                            child: Text(
-                                                                'Ok got it!'),
-                                                          )),
-                                                        ),
-                                                      )
-                                                    ],
+                          onTap: () async {
+                            print("create ride");
+                            var response = await httpRequest.createARide(
+                                widget.selectedStartLocation,
+                                widget.selectedUniversityLocation,
+                                //we need the time and carId as String
+                                "662e66e2032542fb163d9cb9",
+                                "08:00:00",
+                                // We need profite as an int
+                                8,
+                                //we need the food and pets as a bool
+                                food == -1 ? false : true,
+                                pets == -1 ? false : true,
+                                1, //we need the capacity as an int
+                                smoke == -1 ? false : true,
+                                //we need the gender as a String
+
+                                gender == -1 ? "female" : "male");
+
+                            if (response[0] == true) {
+                              if (!context.mounted) return;
+
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return StatefulBuilder(
+                                        builder: (final context,
+                                                final setStatee) =>
+                                            Align(
+                                                alignment: Alignment.center,
+                                                child: Container(
+                                                  margin: const EdgeInsets.only(
+                                                      left: 20, right: 20),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10, right: 10),
+                                                  height: 280,
+                                                  width: 280,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
                                                   ),
-                                                ),
-                                              )));
-                                });
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 20.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.verified_sharp,
+                                                          color: mainColor,
+                                                          size: 100,
+                                                        ),
+                                                        const DefaultTextStyle(
+                                                          style: TextStyle(
+                                                            color: greyColor,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          child: Text(
+                                                              'Your ride has been Confirmed'),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 20,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 16,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () async {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            const PassengersScreen()));
+                                                          },
+                                                          child: Container(
+                                                            height: 50,
+                                                            width: 150,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                              color: mainColor,
+                                                            ),
+                                                            child: const Center(
+                                                                child:
+                                                                    DefaultTextStyle(
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 16,
+                                                              ),
+                                                              child: Text(
+                                                                  'Ok got it!'),
+                                                            )),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )));
+                                  });
+                            } else {
+                              print("not working");
+                              if (!context.mounted) return;
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("${response[1]}"),
+                              ));
+                            }
                           },
                           child: Container(
                             decoration: BoxDecoration(
