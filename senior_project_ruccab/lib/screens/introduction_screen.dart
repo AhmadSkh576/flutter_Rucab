@@ -246,7 +246,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const BookRideMainScreen(),
+                                            BookRideMainScreen(),
                                       ),
                                       (route) => false)
                               : Navigator.pushAndRemoveUntil(
@@ -394,7 +394,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const BookRideMainScreen(),
+                                           BookRideMainScreen(),
                                     ),
                                     (route) => false)
                             : Navigator.pushAndRemoveUntil(

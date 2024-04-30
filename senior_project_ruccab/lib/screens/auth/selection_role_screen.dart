@@ -130,7 +130,7 @@ class _SelectionRoleScreenState extends State<SelectionRoleScreen> {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const BookRideMainScreen(),
+                        builder: (context) =>  BookRideMainScreen(),
                       ),
                       (route) => false,
                     );
