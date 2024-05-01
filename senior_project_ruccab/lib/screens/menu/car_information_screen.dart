@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/constant.dart';
 
 class CarInformationScreen extends StatefulWidget {
-  const CarInformationScreen({super.key});
+  const CarInformationScreen({Key? key}) : super(key: key);
 
   @override
   State<CarInformationScreen> createState() => _CarInformationScreenState();
 }
 
-class _CarInformationScreenState extends State<CarInformationScreen> {
+class _CarInformationScreenState extends State<CarInformationScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   TextEditingController colorController = TextEditingController();
   TextEditingController plateNumberController = TextEditingController();
   TextEditingController modelController = TextEditingController();
@@ -25,6 +27,25 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
   FocusNode expirationDateFocus = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
+
+  bool isLicenseTabSelected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        isLicenseTabSelected = _tabController.index == 1;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +80,8 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const TabBar(
-                padding: EdgeInsets.only(left: 20),
+              TabBar(
+                padding: const EdgeInsets.only(left: 20),
                 indicatorColor: Colors.transparent,
                 dividerColor: Colors.transparent,
                 isScrollable: true,
@@ -69,11 +90,12 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
                   border: Border(
                     bottom: BorderSide(
                       width: 2,
-                      color: mainColor,
+                      color:
+                          isLicenseTabSelected ? mainColor : Colors.transparent,
                     ),
                   ),
                 ),
-                tabs: [
+                tabs: const [
                   Tab(
                     child: Text(
                       "Car",
@@ -88,15 +110,17 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
                     child: Text(
                       'License',
                       style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ],
+                controller: _tabController,
               ),
               Expanded(
-                child: TabBarView(children: [
+                child: TabBarView(controller: _tabController, children: [
                   Container(
                     width: double.maxFinite,
                     height: double.maxFinite,
@@ -277,13 +301,18 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
                               borderRadius: BorderRadius.circular(12),
                               color: mainColor,
                             ),
-                            child: const Text(
-                              "Edit",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                            child: TextButton(
+                              onPressed: () {
+                                _tabController.animateTo(1);
+                              },
+                              child: const Text(
+                                "Next",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -299,46 +328,6 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Full Name",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: fullNameController,
-                            focusNode: fullNameFocus,
-                            validator: (value) {},
-                            onTapOutside: (event) {
-                              fullNameFocus.unfocus();
-                            },
-                            decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: mainColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: darkGrey,
-                                  width: 0.7,
-                                ),
-                              ),
-                              hintText: "Enter your Full Name",
-                              hintStyle: TextStyle(
-                                color: darkGrey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
                           const Text(
                             "License Number",
                             style: TextStyle(
@@ -432,7 +421,7 @@ class _CarInformationScreenState extends State<CarInformationScreen> {
                               color: mainColor,
                             ),
                             child: const Text(
-                              "Edit",
+                              "Done!",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 18,

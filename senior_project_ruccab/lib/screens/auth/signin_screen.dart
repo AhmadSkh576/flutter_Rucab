@@ -4,6 +4,7 @@ import 'package:senior_project_ruccab/local_token.dart';
 import 'package:senior_project_ruccab/screens/auth/enable_location_screen.dart';
 import 'package:senior_project_ruccab/screens/auth/signup_screen.dart';
 import 'package:senior_project_ruccab/utils/http_req.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -13,7 +14,6 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   FocusNode emailFocus = FocusNode();
@@ -22,6 +22,17 @@ class _SignInScreenState extends State<SignInScreen> {
   final httpRequest = HttpRequests();
   final _formKey = GlobalKey<FormState>();
   final SecureStorage secureStorage = SecureStorage();
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    initSharedPref();
+  }
+
+  void initSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +204,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               builder: (context) =>
                                   const EnableLocationScreen()),
                           (route) => false,
-                        );
+                        ); 
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("${response[1]}"),

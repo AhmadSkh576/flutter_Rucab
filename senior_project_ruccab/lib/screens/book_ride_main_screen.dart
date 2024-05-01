@@ -4,7 +4,6 @@ import 'package:senior_project_ruccab/constant.dart';
 import 'package:senior_project_ruccab/screens/menu/menu_screen.dart';
 import 'package:senior_project_ruccab/screens/view_rides_screen.dart';
 
-
 class BookRideMainScreen extends StatefulWidget {
   const BookRideMainScreen({super.key});
 
@@ -13,7 +12,7 @@ class BookRideMainScreen extends StatefulWidget {
 }
 
 class _BookRideMainScreenState extends State<BookRideMainScreen> {
-List<String> startLocation = [
+  List<String> startLocation = [
     'Abo Samra',
     'Mina',
     'Akkar',
@@ -57,12 +56,15 @@ List<String> startLocation = [
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MenuScreen(),
-                ),
-              );
+              Navigator.of(context).push(PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 500),
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: MenuScreen(),
+                  );
+                },
+              ));
             },
             child: Container(
               padding: const EdgeInsets.all(5),
@@ -154,14 +156,12 @@ List<String> startLocation = [
                                     ? "Set start location"
                                     : 'Set Destination',
                                 fillColor: Colors.white70,
-                            
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                        
                     SizedBox(
                       height: 110,
                       child: AnimatedAlign(
@@ -174,13 +174,11 @@ List<String> startLocation = [
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
-
                               color: mainColor.withOpacity(0.6),
                             ),
                             child: TextField(
                               controller: universityController,
 
-                             
                               readOnly: true, // Makes the TextField read-only
                               cursorColor:
                                   mainColor, // Set your 'mainColor' variable accordingly
@@ -313,7 +311,9 @@ List<String> startLocation = [
                     ),
                     itemCount: 4,
                     itemBuilder: (context, index) {
-                      return  const BookRideComponent(index: 0,);
+                      return const BookRideComponent(
+                        index: 0,
+                      );
                     },
                   ),
                 ),

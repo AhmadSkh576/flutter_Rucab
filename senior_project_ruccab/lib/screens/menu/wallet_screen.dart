@@ -3,9 +3,8 @@ import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:senior_project_ruccab/constant.dart';
 import 'package:senior_project_ruccab/functions/functions.dart';
 
-
 class WalletScreen extends StatefulWidget {
-  const WalletScreen({super.key});
+  const WalletScreen({Key? key}) : super(key: key);
 
   @override
   State<WalletScreen> createState() => _WalletScreenState();
@@ -13,7 +12,7 @@ class WalletScreen extends StatefulWidget {
 
 class _WalletScreenState extends State<WalletScreen> {
   double dollar = 3.8;
-  double lira = 0;
+  late double lira;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +73,7 @@ class _WalletScreenState extends State<WalletScreen> {
             isChipVisible: true,
             isSwipeGestureEnabled: true,
             animationDuration: const Duration(milliseconds: 1000),
+            cardBgColor: mainColor, // Set card color to mainColor
             chipColor: Colors.white,
             padding: 18,
           ),
@@ -91,14 +91,14 @@ class _WalletScreenState extends State<WalletScreen> {
                     ),
                   ),
                   Text(
-                    "${lira}LL",
+                    "${lira.toStringAsFixed(2)}LL",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    "$dollar\$",
+                    "${dollar.toStringAsFixed(2)}\$",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

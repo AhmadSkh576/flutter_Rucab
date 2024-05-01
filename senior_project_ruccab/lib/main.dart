@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:senior_project_ruccab/constant.dart';
 import 'package:senior_project_ruccab/provider/ride_provider.dart';
 import 'package:senior_project_ruccab/provider/user_provider.dart';
-import 'package:senior_project_ruccab/screens/book_ride_main_screen.dart';
 import 'package:senior_project_ruccab/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,10 +31,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
         useMaterial3: true,
       ),
-      home: BookRideMainScreen(),
+      home: SplashScreen(),
     );
   }
 }

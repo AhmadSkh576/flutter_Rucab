@@ -1,13 +1,11 @@
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:senior_project_ruccab/constant.dart';
 
-
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({Key? key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -18,43 +16,67 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController universityIDController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  FocusNode emailFocus = FocusNode();
-  FocusNode universityIDFocus = FocusNode();
-  FocusNode phoneNumberFocus = FocusNode();
-  FocusNode fullNameFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
   String selectedGender = '';
   String selecteBirthday = '';
   final ImagePicker _picker = ImagePicker(); // instance of image picker
-   XFile? _imageFile; // in this variable we are storing the image
+  XFile? _imageFile; // in this variable we are storing the image
+
+  // Focus nodes for text fields
+  late FocusNode fullNameFocus;
+  late FocusNode phoneNumberFocus;
+  late FocusNode universityIDFocus;
+  late FocusNode emailFocus;
+
+  @override
+  void initState() {
+    super.initState();
+    fullNameFocus = FocusNode();
+    phoneNumberFocus = FocusNode();
+    universityIDFocus = FocusNode();
+    emailFocus = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Dispose focus nodes to avoid memory leaks
+    fullNameFocus.dispose();
+    phoneNumberFocus.dispose();
+    universityIDFocus.dispose();
+    emailFocus.dispose();
+    super.dispose();
+  }
 
   Widget imageProfile() {
     return Center(
-        child: Stack(children: <Widget>[
-      CircleAvatar(
-        radius: 80,
-        backgroundImage: _imageFile == null
-            ? AssetImage("assets/images/profile.png") as ImageProvider
-            : FileImage(File(_imageFile!.path)) as ImageProvider,
-
-      ),
-      Positioned(
-          bottom: 20.0,
-          right: 20.0,
-          child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                builder: ((builder) => bottomSheet()),
-              );
-            },
-            child: Icon(
-              Icons.camera_alt,
-              color: Colors.red,
-              size: 28.0,
+      child: Stack(
+        children: <Widget>[
+          CircleAvatar(
+            radius: 80,
+            backgroundImage: _imageFile == null
+                ? AssetImage("assets/images/profile.png") as ImageProvider
+                : FileImage(File(_imageFile!.path)) as ImageProvider,
+          ),
+          Positioned(
+            bottom: 20.0,
+            right: 20.0,
+            child: InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: ((builder) => bottomSheet()),
+                );
+              },
+              child: Icon(
+                Icons.camera_alt,
+                color: Colors.red,
+                size: 28.0,
+              ),
             ),
-          ))
-    ])); // because we have image and above image icon that will open bottom set
+          )
+        ],
+      ),
+    );
   }
 
   Widget bottomSheet() {
@@ -90,8 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 icon: Icon(Icons.image, color: Colors.red),
                 label: const Text("Gallery"),
                 onPressed: () {
-                 takePhoto(ImageSource.gallery);
-
+                  takePhoto(ImageSource.gallery);
                 },
               ),
             ],
@@ -102,14 +123,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void takePhoto(ImageSource source) async {
-    final  pickedFile = await _picker.pickImage(
-      source: source, // Specify the source: ImageSource.camera or ImageSource.gallery
+    final pickedFile = await _picker.pickImage(
+      source:
+          source, // Specify the source: ImageSource.camera or ImageSource.gallery
     );
 
-   setState(() {
+    setState(() {
       _imageFile = pickedFile; // It's okay for pickedFile to be null here.
     });
-
   }
 
   @override
@@ -149,168 +170,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 imageProfile(),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                const Text(
-                  "Full Name",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: mainColor,
-                  ),
-                ),
-                TextFormField(
+                buildRoundedTextField(
+                  hintText: "Enter your Full Name",
                   controller: fullNameController,
                   focusNode: fullNameFocus,
-                  validator: (value) {},
-                  onTapOutside: (event) {
-                    fullNameFocus.unfocus();
-                  },
-                  decoration: const InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: mainColor,
-                        width: 1.5,
-                      ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: mainColor,
-                        width: 0.7,
-                      ),
-                    ),
-                    hintText: "Enter your Full Name",
-                    hintStyle: TextStyle(
-                      color: darkGrey,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1,
-                    ),
-                  ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                const Text(
-                  "Phone Number",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: mainColor,
-                  ),
-                ),
-                TextFormField(
+                buildRoundedTextField(
+                  hintText: "Enter your Phone Number",
                   controller: phoneNumberController,
                   focusNode: phoneNumberFocus,
-                  validator: (value) {},
-                  onTapOutside: (event) {
-                    phoneNumberFocus.unfocus();
-                  },
-                  decoration: const InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: mainColor,
-                        width: 1.5,
-                      ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: mainColor,
-                        width: 0.7,
-                      ),
-                    ),
-                    hintText: "Enter your Phone Number",
-                    hintStyle: TextStyle(
-                      color: darkGrey,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1,
-                    ),
-                  ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                const Text(
-                  "University ID",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: mainColor,
-                  ),
-                ),
-                TextFormField(
+                buildRoundedTextField(
+                  hintText: "Enter your University ID",
                   controller: universityIDController,
                   focusNode: universityIDFocus,
-                  validator: (value) {},
-                  onTapOutside: (event) {
-                    universityIDFocus.unfocus();
-                  },
-                  decoration: const InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: mainColor,
-                        width: 1.5,
-                      ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: mainColor,
-                        width: 0.7,
-                      ),
-                    ),
-                    hintText: "Enter your University ID",
-                    hintStyle: TextStyle(
-                      color: darkGrey,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1,
-                    ),
-                  ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                const Text(
-                  "University ID",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: mainColor,
-                  ),
-                ),
-                TextFormField(
+                buildRoundedTextField(
+                  hintText: "Enter your Email",
                   controller: emailController,
                   focusNode: emailFocus,
-                  validator: (value) {},
-                  onTapOutside: (event) {
-                    emailFocus.unfocus();
-                  },
-                  decoration: const InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: mainColor,
-                        width: 1.5,
-                      ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: mainColor,
-                        width: 0.7,
-                      ),
-                    ),
-                    hintText: "Enter your Email",
-                    hintStyle: TextStyle(
-                      color: darkGrey,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1,
-                    ),
-                  ),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 const Text(
                   "Gender",
@@ -321,7 +214,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 PopupMenuButton(
                   color: Colors.white,
@@ -343,7 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     child: Text(
                       selectedGender == ''
-                          ? "Enter your Geneder"
+                          ? "Enter your Gender"
                           : selectedGender,
                       style: const TextStyle(
                         color: darkGrey,
@@ -367,7 +260,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 const Text(
                   "Birthday",
@@ -378,7 +271,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -448,6 +341,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildRoundedTextField({
+    required String hintText,
+    required TextEditingController controller,
+    required FocusNode focusNode,
+    TextInputType? keyboardType,
+  }) {
+    return TextFormField(
+      controller: controller,
+      focusNode: focusNode,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: darkGrey,
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 1,
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: focusNode.hasFocus ? Colors.red : darkGrey,
+            width: 1.5,
           ),
         ),
       ),
