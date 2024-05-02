@@ -5,7 +5,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:senior_project_ruccab/constant.dart';
 import 'package:senior_project_ruccab/screens/book_ride_main_screen.dart';
 
-
 import '../components/confirmation_driver_component.dart';
 
 class ConfirmRideScreen extends StatefulWidget {
@@ -250,8 +249,10 @@ class _ConfirmRideScreenState extends State<ConfirmRideScreen> {
                       ),
                     ],
                   ),
-               const    ConfirmationDriverComponent(),
-                 const SizedBox(height:60,),
+                  const ConfirmationDriverComponent(),
+                  const SizedBox(
+                    height: 60,
+                  ),
                   Column(
                     children: [
                       GestureDetector(
@@ -291,7 +292,7 @@ class _ConfirmRideScreenState extends State<ConfirmRideScreen> {
                               vertical: 5.0,
                             ),
                             child: Text(
-                              'Chat with driver',
+                              'Call Driver',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,

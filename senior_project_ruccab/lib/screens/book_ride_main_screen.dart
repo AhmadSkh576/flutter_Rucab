@@ -56,15 +56,12 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(PageRouteBuilder(
-                transitionDuration: const Duration(milliseconds: 500),
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: MenuScreen(),
-                  );
-                },
-              ));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MenuScreen(),
+                ),
+              );
             },
             child: Container(
               padding: const EdgeInsets.all(5),
@@ -119,7 +116,7 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: mainColor.withOpacity(0.6),
+                              color: Colors.white,
                             ),
                             child: DropdownButtonFormField<String>(
                               value: selectedStartLocation,
@@ -174,7 +171,7 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: mainColor.withOpacity(0.6),
+                              color: Colors.white,
                             ),
                             child: TextField(
                               controller: universityController,
@@ -258,7 +255,7 @@ class _BookRideMainScreenState extends State<BookRideMainScreen> {
             height: MediaQuery.of(context).size.height * 0.65,
             width: double.maxFinite,
             decoration: BoxDecoration(
-              color: mainColor.withOpacity(.2),
+              color: Colors.white,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),

@@ -21,7 +21,7 @@ class _RideDetailsState extends State<RideDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 73),
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
         child: SizedBox(
             width: double.maxFinite,
             child: Column(
@@ -146,9 +146,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 0,
                           groupValue: gender,
                           onChanged: (int? value) {
-                            setState(() {
-                              gender = 0;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -171,9 +169,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 1,
                           groupValue: gender,
                           onChanged: (int? value) {
-                            setState(() {
-                              gender = 1;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -196,9 +192,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 2,
                           groupValue: gender,
                           onChanged: (int? value) {
-                            setState(() {
-                              gender = 2;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -233,9 +227,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 0,
                           groupValue: smoke,
                           onChanged: (int? value) {
-                            setState(() {
-                              smoke = 0;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -258,9 +250,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 1,
                           groupValue: smoke,
                           onChanged: (int? value) {
-                            setState(() {
-                              smoke = 1;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -295,9 +285,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 0,
                           groupValue: pets,
                           onChanged: (int? value) {
-                            setState(() {
-                              pets = 0;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -320,9 +308,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 1,
                           groupValue: pets,
                           onChanged: (int? value) {
-                            setState(() {
-                              pets = 1;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -357,9 +343,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 0,
                           groupValue: food,
                           onChanged: (int? value) {
-                            setState(() {
-                              food = 0;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -382,9 +366,7 @@ class _RideDetailsState extends State<RideDetails> {
                           value: 1,
                           groupValue: food,
                           onChanged: (int? value) {
-                            setState(() {
-                              food = 1;
-                            });
+                            setState(() {});
                           },
                           activeColor: greyColor,
                           fillColor:
@@ -648,7 +630,7 @@ class _RideDetailsState extends State<RideDetails> {
                                                   fontSize: 30),
                                             ),
                                             const SizedBox(
-                                              height: 20,
+                                              height: 15,
                                             ),
                                             LayoutBuilder(
                                               builder: (BuildContext context,
@@ -680,9 +662,6 @@ class _RideDetailsState extends State<RideDetails> {
                                                   }),
                                                 );
                                               },
-                                            ),
-                                            const SizedBox(
-                                              height: 20,
                                             ),
                                             const Padding(
                                               padding:
@@ -773,9 +752,6 @@ class _RideDetailsState extends State<RideDetails> {
                                                 ],
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
                                             LayoutBuilder(
                                               builder: (BuildContext context,
                                                   BoxConstraints constraints) {
@@ -810,7 +786,7 @@ class _RideDetailsState extends State<RideDetails> {
                                             ),
                                             const Padding(
                                               padding: EdgeInsets.only(
-                                                  top: 10.0, right: 50),
+                                                  top: 0, right: 50),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.end,
@@ -825,9 +801,6 @@ class _RideDetailsState extends State<RideDetails> {
                                                 ],
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 30,
-                                            ),
                                             GestureDetector(
                                               onTap: () {
                                                 Navigator.push(
@@ -839,7 +812,7 @@ class _RideDetailsState extends State<RideDetails> {
                                                 );
                                               },
                                               child: Container(
-                                                height: 50,
+                                                height: 40,
                                                 width: 150,
                                                 decoration: BoxDecoration(
                                                     color: mainColor,
@@ -877,7 +850,7 @@ class _RideDetailsState extends State<RideDetails> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 20),
+                                        fontSize: 15),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),

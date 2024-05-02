@@ -1,444 +1,217 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/constant.dart';
 
-class CarInformationScreen extends StatefulWidget {
-  const CarInformationScreen({Key? key}) : super(key: key);
+class ConfirmationDriverComponent extends StatefulWidget {
+  const ConfirmationDriverComponent({super.key});
 
   @override
-  State<CarInformationScreen> createState() => _CarInformationScreenState();
+  State<ConfirmationDriverComponent> createState() =>
+      _ConfirmationDriverComponentState();
 }
 
-class _CarInformationScreenState extends State<CarInformationScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  TextEditingController colorController = TextEditingController();
-  TextEditingController plateNumberController = TextEditingController();
-  TextEditingController modelController = TextEditingController();
-  TextEditingController carYearController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController licenseNumberController = TextEditingController();
-  TextEditingController expirationDateController = TextEditingController();
-  FocusNode colorFocus = FocusNode();
-  FocusNode plateNumberFocus = FocusNode();
-  FocusNode modelFocus = FocusNode();
-  FocusNode carYearFocus = FocusNode();
-  FocusNode fullNameFocus = FocusNode();
-  FocusNode licenseNumberFocus = FocusNode();
-  FocusNode expirationDateFocus = FocusNode();
-
-  final _formKey = GlobalKey<FormState>();
-
-  bool isLicenseTabSelected = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(() {
-      setState(() {
-        isLicenseTabSelected = _tabController.index == 1;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+class _ConfirmationDriverComponentState
+    extends State<ConfirmationDriverComponent> {
+  bool selected = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        elevation: 0,
-        title: const Text(
-          "Car Information",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: mainColor,
+    return Container(
+      width: double.maxFinite,
+      height: 160,
+      decoration: BoxDecoration(
+          color: const Color.fromRGBO(241, 216, 234, 1.0),
+          borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0, left: 10, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    const Text('White Swift',
+                        style: TextStyle(
+                            color: mainColor, fontWeight: FontWeight.w600)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 15),
+                      child: SizedBox(
+                        height: 50,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                "https://platform.cstatic-images.com/xlarge/in/v2/stock_photos/9b4509f2-259e-460c-96d7-6bd672414021/4652f3a8-300a-4ddc-9c17-0d4a783b2e5c.png",
+                            fit: BoxFit.cover,
+                            // width: double.maxFinite,
+                            placeholder: (context, url) {
+                              return const Icon(
+                                Icons.person,
+                                size: 60,
+                              );
+                            },
+                            errorWidget: (context, url, error) {
+                              return const Icon(
+                                Icons.person,
+                                size: 60,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'BMW M3',
+                      style: TextStyle(color: greyColor),
+                    ),
+                    Text(' 1234',
+                        style: TextStyle(
+                            color: darkGrey, fontWeight: FontWeight.w500))
+                  ],
+                ),
+                const SizedBox(
+                  width: 50,
+                ),
+                Row(
+                  children: [
+                    const Column(
+                      children: [
+                        Text(
+                          'Ahmad',
+                          style: TextStyle(
+                              color: mainColor, fontWeight: FontWeight.w500),
+                        ),
+                        Row(children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                          ),
+                          Text('4.5'),
+                        ]),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    SizedBox(
+                      height: 40,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg",
+                          fit: BoxFit.cover,
+                          // width: double.maxFinite,
+                          placeholder: (context, url) {
+                            return const Icon(
+                              Icons.person,
+                              size: 60,
+                            );
+                          },
+                          errorWidget: (context, url, error) {
+                            return const Icon(
+                              Icons.person,
+                              size: 60,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-        backgroundColor: Colors.white,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back_ios,
-            color: mainColor,
-            size: 30,
+          Container(
+            width: double.maxFinite,
+            color: greyColor,
+            height: 1,
           ),
-        ),
-      ),
-      body: DefaultTabController(
-        length: 2,
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TabBar(
-                padding: const EdgeInsets.only(left: 20),
-                indicatorColor: Colors.transparent,
-                dividerColor: Colors.transparent,
-                isScrollable: true,
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicator: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 2,
-                      color:
-                          isLicenseTabSelected ? mainColor : Colors.transparent,
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: 50,
+                    decoration: const BoxDecoration(
+                        borderRadius:
+                            BorderRadius.only(bottomLeft: Radius.circular(20))),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          size: 20,
+                          color: greyColor,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'Call Driver',
+                          style: TextStyle(color: greyColor, fontSize: 18),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                tabs: const [
-                  Tab(
-                    child: Text(
-                      "Car",
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Tab(
-                    child: Text(
-                      'License',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-                controller: _tabController,
+              ),
+              Container(
+                width: 1,
+                color: greyColor,
+                height: 50,
               ),
               Expanded(
-                child: TabBarView(controller: _tabController, children: [
-                  Container(
-                    width: double.maxFinite,
-                    height: double.maxFinite,
-                    margin: const EdgeInsets.all(20),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selected = !selected;
+                    });
+                  },
+                  child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: selected
+                              ? mainColor.withOpacity(.4)
+                              : Colors.transparent,
+                          borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(20))),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            "Plate Number",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
+                          Icon(
+                            Icons.cancel,
+                            size: 20,
+                            color: greyColor,
                           ),
-                          TextFormField(
-                            controller: plateNumberController,
-                            focusNode: plateNumberFocus,
-                            validator: (value) {},
-                            onTapOutside: (event) {
-                              plateNumberFocus.unfocus();
-                            },
-                            decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: mainColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: darkGrey,
-                                  width: 0.7,
-                                ),
-                              ),
-                              hintText: "Enter your Plate Number",
-                              hintStyle: TextStyle(
-                                color: darkGrey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
-                              ),
-                            ),
+                          SizedBox(
+                            width: 5,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "Model",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: modelController,
-                            focusNode: modelFocus,
-                            validator: (value) {},
-                            onTapOutside: (event) {
-                              modelFocus.unfocus();
-                            },
-                            decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: mainColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: darkGrey,
-                                  width: 0.7,
-                                ),
-                              ),
-                              hintText: "Enter your Model",
-                              hintStyle: TextStyle(
-                                color: darkGrey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "Car Year",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: carYearController,
-                            focusNode: carYearFocus,
-                            validator: (value) {},
-                            onTapOutside: (event) {
-                              carYearFocus.unfocus();
-                            },
-                            decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: mainColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: darkGrey,
-                                  width: 0.7,
-                                ),
-                              ),
-                              hintText: "Enter your Car Year",
-                              hintStyle: TextStyle(
-                                color: darkGrey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "Color",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: colorController,
-                            focusNode: colorFocus,
-                            validator: (value) {},
-                            onTapOutside: (event) {
-                              colorFocus.unfocus();
-                            },
-                            decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: mainColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: darkGrey,
-                                  width: 0.7,
-                                ),
-                              ),
-                              hintText: "Enter Color",
-                              hintStyle: TextStyle(
-                                color: darkGrey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            height: 45,
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 30,
-                              vertical: 20,
-                            ),
-                            width: double.maxFinite,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: mainColor,
-                            ),
-                            child: TextButton(
-                              onPressed: () {
-                                _tabController.animateTo(1);
-                              },
-                              child: const Text(
-                                "Next",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
+                          Text(
+                            'Cancel Ride',
+                            style: TextStyle(color: greyColor, fontSize: 18),
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.maxFinite,
-                    height: double.maxFinite,
-                    margin: const EdgeInsets.all(20),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "License Number",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: licenseNumberController,
-                            focusNode: licenseNumberFocus,
-                            validator: (value) {},
-                            onTapOutside: (event) {
-                              licenseNumberFocus.unfocus();
-                            },
-                            decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: mainColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: darkGrey,
-                                  width: 0.7,
-                                ),
-                              ),
-                              hintText: "Enter your License Number",
-                              hintStyle: TextStyle(
-                                color: darkGrey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "Exp",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextFormField(
-                            controller: expirationDateController,
-                            focusNode: expirationDateFocus,
-                            validator: (value) {},
-                            onTapOutside: (event) {
-                              expirationDateFocus.unfocus();
-                            },
-                            decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: mainColor,
-                                  width: 1.5,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: darkGrey,
-                                  width: 0.7,
-                                ),
-                              ),
-                              hintText: "Enter your expiration date",
-                              hintStyle: TextStyle(
-                                color: darkGrey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            height: 45,
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 30,
-                              vertical: 20,
-                            ),
-                            width: double.maxFinite,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: mainColor,
-                            ),
-                            child: const Text(
-                              "Done!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ]),
+                      )),
+                ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

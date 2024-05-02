@@ -44,27 +44,14 @@ class _SplashScreenState extends State<SplashScreen>
     // Start the animation
     _controller.forward();
 
-    checkLoggedInStatus();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void checkLoggedInStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('accessToken');
-    if (token != null) {
-      //  if there's a token stored in SharedPreferences. If there is, you can automatically navigate the user to the select role
-      Navigator.pushAndRemoveUntil(
+    // Navigate to next screen after animation completes
+    Timer(
+      const Duration(seconds: 2),
+      () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SelectionRoleScreen()),
-        (route) => false,
-      );
-    }
+        MaterialPageRoute(builder: (context) => const SignInScreen()),
+      ),
+    );
   }
 
   @override
@@ -73,10 +60,10 @@ class _SplashScreenState extends State<SplashScreen>
       body: Stack(
         children: [
           AnimatedPositioned(
-            duration: const Duration(seconds: 1),
+            duration: const Duration(seconds: 10),
             curve: Curves.easeInOut,
             top: MediaQuery.of(context).size.height * 0.2,
-            left: 0,
+            left: 0, 
             right: 0,
             child: SlideTransition(
               position: _offsetAnimation,

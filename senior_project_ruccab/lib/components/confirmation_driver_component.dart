@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/constant.dart';
-
 class ConfirmationDriverComponent extends StatefulWidget {
   const ConfirmationDriverComponent({super.key});
 
@@ -216,13 +215,3 @@ class _ConfirmationDriverComponentState
     );
   }
 }
-
-
-
-/*
-when linking: 
-
-
-
-
- */

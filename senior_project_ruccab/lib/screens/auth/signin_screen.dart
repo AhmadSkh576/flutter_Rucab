@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/constant.dart';
-import 'package:senior_project_ruccab/local_token.dart';
 import 'package:senior_project_ruccab/screens/auth/enable_location_screen.dart';
+import 'package:senior_project_ruccab/screens/auth/selection_role_screen.dart';
 import 'package:senior_project_ruccab/screens/auth/signup_screen.dart';
+import 'package:senior_project_ruccab/screens/auth/verification_screen.dart';
 import 'package:senior_project_ruccab/utils/http_req.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -20,20 +20,8 @@ class _SignInScreenState extends State<SignInScreen> {
   FocusNode passwordFocus = FocusNode();
   bool obscure = false;
   final httpRequest = HttpRequests();
+
   final _formKey = GlobalKey<FormState>();
-  final SecureStorage secureStorage = SecureStorage();
-  late SharedPreferences prefs;
-
-  @override
-  void initState() {
-    super.initState();
-    initSharedPref();
-  }
-
-  void initSharedPref() async {
-    prefs = await SharedPreferences.getInstance();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,7 +127,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Expanded(
                               child: TextFormField(
                                 controller: passwordController,
-                                obscureText: true,
+                                obscureText: obscure,
                                 focusNode: passwordFocus,
                                 validator: (value) {},
                                 onTapOutside: (event) {
@@ -194,21 +182,41 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      print("login clicked");
                       var response = await httpRequest.login(
                           emailController.text, passwordController.text);
 
                       if (response[0] == true) {
+                        if (!context.mounted) return;
+
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
                                   const EnableLocationScreen()),
                           (route) => false,
-                        ); 
+                        );
                       } else {
+                        if (!context.mounted) return;
+
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("${response[1]}"),
                         ));
+
+                        if (response[1] != "User not verified") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SelectionRoleScreen()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => VerificationScreen(
+                                    email: emailController.text)),
+                          );
+                        }
                       }
                     },
                     child: Container(

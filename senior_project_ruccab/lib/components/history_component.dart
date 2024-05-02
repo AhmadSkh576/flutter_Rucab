@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:senior_project_ruccab/constant.dart';
 import 'package:senior_project_ruccab/ride_details.dart';
-
-
 class HistoryComponent extends StatefulWidget {
   const HistoryComponent({super.key});
 

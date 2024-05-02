@@ -8,7 +8,6 @@ import 'package:senior_project_ruccab/screens/menu/profile_screen.dart';
 import 'package:senior_project_ruccab/screens/menu/trip_history_screen.dart';
 import 'package:senior_project_ruccab/screens/menu/wallet_screen.dart';
 
-
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
 
@@ -178,7 +177,8 @@ class _MenuScreenState extends State<MenuScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const CarInformationScreen(),
+                        builder: (context) =>
+                            const ConfirmationDriverComponent(),
                       ));
                 },
                 child: Container(
